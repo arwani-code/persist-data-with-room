@@ -1,10 +1,12 @@
-package com.arwani.ahmad.persist_data_with_room.ui.item
+package com.arwani.ahmad.persist_data_with_room.ui.item.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.arwani.ahmad.persist_data_with_room.data.Item
 import com.arwani.ahmad.persist_data_with_room.data.ItemRepository
+import com.arwani.ahmad.persist_data_with_room.ui.item.model.ItemDetails
+import com.arwani.ahmad.persist_data_with_room.ui.item.model.toItem
+import com.arwani.ahmad.persist_data_with_room.ui.item.model.toItemDetails
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

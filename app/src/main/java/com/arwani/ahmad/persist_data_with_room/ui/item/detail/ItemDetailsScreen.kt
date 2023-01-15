@@ -1,4 +1,4 @@
-package com.arwani.ahmad.persist_data_with_room.ui.item
+package com.arwani.ahmad.persist_data_with_room.ui.item.detail
 
 import androidx.compose.runtime.Composable
 import com.arwani.ahmad.persist_data_with_room.R
