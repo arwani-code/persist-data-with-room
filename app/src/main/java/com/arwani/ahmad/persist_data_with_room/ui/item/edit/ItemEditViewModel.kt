@@ -7,7 +7,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arwani.ahmad.persist_data_with_room.data.ItemRepository
-import com.arwani.ahmad.persist_data_with_room.ui.item.detail.ItemDetailsDestination
 import com.arwani.ahmad.persist_data_with_room.ui.item.model.*
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
@@ -21,7 +20,7 @@ class ItemEditViewModel(
     var itemUiState by mutableStateOf(ItemUiState())
         private set
 
-    private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
+    private val itemId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
 
     init {
         viewModelScope.launch {

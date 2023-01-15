@@ -1,18 +1,17 @@
-package com.arwani.ahmad.persist_data_with_room.ui.home
+package com.arwani.ahmad.persist_data_with_room.ui.item.entry
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.arwani.ahmad.persist_data_with_room.R
 import com.arwani.ahmad.persist_data_with_room.ui.navigation.NavigationDestination
 
-object HomeNavigation : NavigationDestination {
+object ItemEntryDestination : NavigationDestination {
     override val route: String
-        get() = "home"
+        get() = "item_entry"
     override val titleRes: Int
-        get() = R.string.app_name
+        get() = R.string.item_entry_title
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier){
+fun ItemEntryScreen(){
 
 }
