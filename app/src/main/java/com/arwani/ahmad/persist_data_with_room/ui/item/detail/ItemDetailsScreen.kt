@@ -2,12 +2,11 @@ package com.arwani.ahmad.persist_data_with_room.ui.item.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,6 +46,25 @@ private fun ItemDetailsBody(
             mutableStateOf(false)
         }
         ItemInputForm(itemDetails = itemDetailUiState.itemDetails, enabled = false)
+        Button(
+            onClick = onSellItem,
+            modifier = modifier.fillMaxWidth(),
+            enabled = !itemDetailUiState.outOfStock
+        ) {
+            Text(text = stringResource(id = R.string.sell))
+        }
+        OutlinedButton(
+            onClick = { deleteConfirmationRequired = true },
+            modifier = modifier.fillMaxWidth()
+        ) {
+            Text(text = stringResource(id = R.string.delete))
+        }
+        if (deleteConfirmationRequired) {
+            DeleteConfirmationDialog(onDeleteConfirm = {
+                deleteConfirmationRequired = false
+                onDelete()
+            }, onDeleteCancel = { deleteConfirmationRequired = false })
+        }
     }
 }
 
