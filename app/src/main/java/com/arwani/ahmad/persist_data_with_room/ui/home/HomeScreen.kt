@@ -25,10 +25,8 @@ import com.arwani.ahmad.persist_data_with_room.InventoryTopAppBar
 import com.arwani.ahmad.persist_data_with_room.ui.AppViewModelProvider
 
 object HomeDestination : NavigationDestination {
-    override val route: String
-        get() = "home"
-    override val titleRes: Int
-        get() = R.string.app_name
+    override val route: String = "home"
+    override val titleRes: Int = R.string.app_name
 }
 
 @Composable
