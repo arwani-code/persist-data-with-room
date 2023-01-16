@@ -1,12 +1,11 @@
 package com.arwani.ahmad.persist_data_with_room.ui.item.detail
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -14,6 +13,10 @@ import androidx.compose.ui.unit.dp
 import com.arwani.ahmad.persist_data_with_room.R
 import com.arwani.ahmad.persist_data_with_room.ui.component.ItemInputForm
 import com.arwani.ahmad.persist_data_with_room.ui.navigation.NavigationDestination
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.arwani.ahmad.persist_data_with_room.InventoryTopAppBar
+import com.arwani.ahmad.persist_data_with_room.ui.AppViewModelProvider
+import kotlinx.coroutines.launch
 
 object ItemDetailsDestination : NavigationDestination {
     override val route: String
@@ -25,8 +28,47 @@ object ItemDetailsDestination : NavigationDestination {
 }
 
 @Composable
-fun ItemDetailsScreen() {
-
+fun ItemDetailsScreen(
+    navigateToEditItem: (Int) -> Unit,
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ItemDetailsViewModel = viewModel(factory = AppViewModelProvider.factory)
+) {
+    val uiState = viewModel.uiState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    Scaffold(
+        topBar = {
+            InventoryTopAppBar(
+                title = stringResource(ItemDetailsDestination.titleRes),
+                canNavigationBack = true,
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navigateToEditItem(uiState.value.itemDetails.id) },
+                modifier = modifier.navigationBarsPadding()
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(id = R.string.edit_item_title),
+                    tint = MaterialTheme.colors.onPrimary
+                )
+            }
+        }
+    ) { innerPadding ->
+        ItemDetailsBody(
+            itemDetailUiState = uiState.value,
+            onSellItem = { viewModel.reduceQuantityByOne() },
+            onDelete = {
+                coroutineScope.launch {
+                    viewModel.deleteItem()
+                    navigateBack()
+                }
+            },
+            modifier = modifier.padding(innerPadding)
+        )
+    }
 }
 
 @Composable
